@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<entry type="method" name="nextAll" return="jQuery">
+  <title>.nextAll()</title>
+  <signature>
+    <added>1.2</added>
+    <argument name="selector" optional="true" type="String">
+      <desc>一个包含择器表达式的字符串，用于匹配元素。</desc>
+    </argument>
+  </signature>
+  <desc>在匹配元素集合中，获取每个元素后面所跟随的所有同辈元素，还可提供一个选择器用于过滤元素。</desc>
+  <longdesc>
+    <p>给定一个代表一组DOM元素的jQuery对象，<code>.nextAll()</code>方法允许我们在DOM树上遍历所有元素的后继元素，并且构建一个新的匹配元素的jQuery对象。</p>
+    <p>该方法还可以接受一个可选的选择器表达式，该选择器表达式可以是任何可传给<code>$()</code>函数的选择器表达式。如果供应选择器参数，那么会先测试该元素是否满足匹配的选择器表达式。</p>
+    <p>考虑一个页面上包含了一个简单的列表：</p>
+    <pre><code>
+&lt;ul&gt;
+   &lt;li&gt;list item 1&lt;/li&gt;
+   &lt;li&gt;list item 2&lt;/li&gt;
+   &lt;li class="third-item"&gt;list item 3&lt;/li&gt;
+   &lt;li&gt;list item 4&lt;/li&gt;
+   &lt;li&gt;list item 5&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+    <p>如果我们从第三个项目开始，我们可以找到它之后的元素：</p>
+    <pre><code>$('li.third-item').nextAll().css('background-color', 'red');</code></pre>
+    <p>执行后的结果是列表项4和5变成红色背景。 由于我们没有提供一个选择器表达式，因此这两个元素很明确的成为了结果对象中的一部分。如果我们有提供一个选择器表达式，那么在加入结果对象之前，会先测试该元素是否匹配选择器表达式。</p>
+  </longdesc>
+  <example>
+    <desc>查找第一个div后面的所有div，并为它们添加一个class。</desc>
+    <code><![CDATA[$("div:first").nextAll().addClass("after");]]></code>
+    <css><![CDATA[
+  div { width: 80px; height: 80px; background: #abc;
+        border: 2px solid black; margin: 10px; float: left; }
+  div.after { border-color: red; }
+  ]]></css>
+    <height>150</height>
+    <html><![CDATA[<div>first</div>
+  <div>sibling<div>child</div></div>
+  <div>sibling</div>
+
+  <div>sibling</div>]]></html>
+  </example>
+  <example>
+    <desc>查找body中第二个子元素后面的所有段落元素，并为它们添加一个class。</desc>
+    <code><![CDATA[
+    $(":nth-child(1)").nextAll("p").addClass("after");
+]]></code>
+    <css><![CDATA[
+div, p { width: 60px; height: 60px; background: #abc;
+         border: 2px solid black; margin: 10px; float: left; }
+.after { border-color: red; }
+]]></css>
+    <height>200</height>
+    <html><![CDATA[<p>p</p>
+<div>div</div>
+<p>p</p>
+<p>p</p>
+<div>div</div>
+
+<p>p</p>
+<div>div</div>]]></html>
+  </example>
+  <category slug="traversing/tree-traversal"/>
+  <category slug="version/1.2"/>
+</entry>
