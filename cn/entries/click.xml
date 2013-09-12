@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<entry type="method" name="click" return="jQuery">
+  <title>.click()</title>
+  <desc>为 JavaScript 的"click" 事件绑定一个处理器，或者触发元素上的 "click" 事件。</desc>
+  <signature>
+    <added>1.0</added>
+    <argument name="handler(eventObject)" type="Function">
+      <desc>每次事件触发时会执行的函数。</desc>
+    </argument>
+  </signature>
+  <signature>
+    <added>1.4.3</added>
+    <argument name="eventData" type="Object" optional="true">
+      <desc>此对象所包含的数据将被传递给事件处理器。</desc>
+    </argument>
+    <argument name="handler(eventObject)" type="Function">
+      <desc>每次事件触发时会执行的函数。</desc>
+    </argument>
+  </signature>
+  <signature>
+    <added>1.0</added>
+  </signature>
+  <longdesc>
+    <p>此方法的前两个用法是<code>.on( "click", handler )</code>的快捷方式，第三个用法是<code>.trigger( "click" )</code>的快捷方式。
+    当鼠标指针放置于某个元素之上，并且鼠标按键被按下然后释放，此元素将接收到<code>click</code>事件。 任何HTML元素都可以接收此事件。
+    例如下面的HTML：</p>
+    <pre><code>
+&lt;div id="target"&gt;
+  Click here
+&lt;/div&gt;
+&lt;div id="other"&gt;
+  Trigger the handler
+&lt;/div&gt;
+    </code></pre>
+    <p class="image">
+      <img src="/resources/0042_05_03.png" alt=""/>
+    </p>
+    <p>此事件处理器可以绑定到任何<code>&lt;div&gt;</code>：</p>
+    <pre><code>
+$( "#target" ).click(function() {
+  alert( "Handler for .click() called." );
+});
+    </code></pre>
+    <p>现在，如果我们点击这个元素，将弹出警告框：</p>
+    <p>
+      <samp>Handler for .click() called.</samp>
+    </p>
+    <p>我们也可以通过点击另一个元素触发此事件：</p>
+    <pre><code>
+$( "#other" ).click(function() {
+  $( "#target" ).click();
+});
+    </code></pre>
+    <p>这些代码执行后，点击<samp>Trigger the handler</samp>也会弹出具有同样信息的警告框。</p>
+    <p><code>click</code>事件只有在以下一系列事件触发之后才被触发：</p>
+    <ul>
+      <li>鼠标指针在元素范围内且鼠标按键被按下。</li>
+      <li>鼠标指针在元素范围内且鼠标按键被释放。</li>
+    </ul>
+    <p>这一顺序是必须的。如果此顺序不满足，<code>mousedown</code> 或 <code>mouseup</code>事件应该会更合适。</p>
+  </longdesc>
+  <example>
+    <desc>点击段落时将其隐藏：</desc>
+    <code><![CDATA[
+$( "p" ).click(function() {
+  $( this ).slideUp();
+});
+]]></code>
+    <css><![CDATA[
+  p {
+    color: red;
+    margin: 5px;
+    cursor: pointer;
+  }
+  p:hover {
+    background: yellow;
+  }
+]]></css>
+    <html><![CDATA[
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p>Yet one more Paragraph</p>
+]]></html>
+  </example>
+  <example>
+    <desc>在页面上的所有段落上触发click事件：</desc>
+    <code><![CDATA[
+$( "p" ).click();
+]]></code>
+  </example>
+  <category slug="events/mouse-events"/>
+  <category slug="version/1.0"/>
+  <category slug="version/1.4.3"/>
+</entry>

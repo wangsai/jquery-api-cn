@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<entry type="method" name="clone" return="jQuery">
+  <title>.clone()</title>
+  <signature>
+    <added>1.0</added>
+    <argument name="withDataAndEvents" optional="true" type="Boolean" default="false">
+      <desc>一个Boolean值，表示元素上的事件处理函数是否会随元素一同被复制。从jQuery 1.4开始，元素数据也会被复制。</desc>
+    </argument>
+  </signature>
+  <signature>
+    <added>1.5</added>
+    <argument name="withDataAndEvents" optional="true" type="Boolean" default="false">
+      <desc>一个Boolean值，表示元素上的事件处理函数和数据是否会随元素一同被复制。 默认值是<code>false</code>。<em>*对于jQuery 1.5.0，默认值被错误地设置成了<code>true</code>，将在1.5.1以上改回<code>false</code> 。</em></desc>
+    </argument>
+    <argument name="deepWithDataAndEvents" optional="true" type="Boolean" default="value of withDataAndEvents">
+      <desc>一个Boolean值，用于指示被复制元素的子元素中的事件处理器和数据是否一同被复制。默认情况下，它的值与第一个参数的值（ 默认值是<code>false</code>）一致。</desc>
+    </argument>
+  </signature>
+  <desc>创建一个匹配的元素集合的深度拷贝副本。</desc>
+  <longdesc>
+    <p><code>.clone()</code>方法可以<em>深度</em>复制所有匹配的元素，也就是说，它将复制所有匹配的元素，包括被匹配元素的后代元素和文本节点。出于性能原因， 表单元素（例如，输入到<code>input</code>和<code>textarea</code>中的用户数据或用户对<code>select</code>选择的结果 ）并不会随元素一同被复制。克隆操作按照HTML规范将这些元素设置为默认值。</p>
+    <p>当和插入方法联合使用时，<code>.clone()</code>方法能够很方便的复制页面上的元素。请看下面的HTML：</p>
+    <pre><code>
+&lt;div class="container"&gt;
+  &lt;div class="hello"&gt;Hello&lt;/div&gt;
+  &lt;div class="goodbye"&gt;Goodbye&lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+    <p>就像我们讨论<code><a href="http://api.jquery.com/append/">.append()</a></code>一样， 通常我们将一个元素插入到DOM里的另一个地方，实质是从其原来的位置移动到新的位置。例如如下代码：</p>
+    <pre><code>
+$( ".hello" ).appendTo( ".goodbye" );
+    </code></pre>
+    <p>得到的DOM结构如下：</p>
+    <pre><code>
+&lt;div class="container"&gt;
+  &lt;div class="goodbye"&gt;
+    Goodbye
+    &lt;div class="hello"&gt;Hello&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+    <p>但是，如果我们需要的是复制而不是移动，我们可以像下面这样写代码：</p>
+    <pre><code>
+$( ".hello" ).clone().appendTo( ".goodbye" );
+    </code></pre>
+    <p>其结果是：</p>
+    <pre><code>
+&lt;div class="container"&gt;
+  &lt;div class="hello"&gt;Hello&lt;/div&gt;
+  &lt;div class="goodbye"&gt;
+    Goodbye
+    &lt;div class="hello"&gt;Hello&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+    <div class="warning">
+      <p><strong>注意：</strong> 当我们用<code>.clone()</code>方法克隆元素之后，在将此新元素插入到文档之前，我们可以修改该此元素或者其内容。</p>
+    </div>
+    <p>通常，任何绑定绑定在原始元素上的事件处理函数都<em>不会</em> 被复制到克隆元素上。而<code>withDataAndEvents</code>参数允许我们改变该默认行为，从而将所有绑定在原始元素上的事件处理函数复制到克隆元素上。从jQuery 1.4开始，所有元素数据（通过<code>.data()</code>方法绑定的数据）同样会被复制到新的克隆元素上。</p>
+    <p>然而，带有元素数据的对象和数组其元素数据不会被复制，并将被克隆元素和原始元素共享。为了深度复制所有元素数据，需要手工逐个复制：</p>
+    <pre><code>
+// 绑定了数据的原始元素
+var $elem = $( "#elem" ).data( "arr": [ 1 ] ),
+    $clone = $elem.clone( true )
+      // 深度拷贝以防数据共享
+      .data( "arr", $.extend( [], $elem.data( "arr" ) ) );
+    </code></pre>
+    <p>从jQuery 1.5开始，<code>withDataAndEvents</code>可以通过设置<code>deepWithDataAndEvents </code>从而将被复制元素的子元素的事件和数据一同被复制。</p>
+    <div class="warning">
+      <p><strong>注意：</strong> 使用<code>.clone()</code>可能产生<code>id</code>属性重复的副作用，而<code>id</code>属性应该是唯一的。在可能的情况下，建议避免克隆有此属性的元素，或者尽量使用<code>class</code>属性代替。</p>
+    </div>
+  </longdesc>
+  <example>
+    <desc>复制所有 b 元素（并将这些元素选中）然后将他们插入到所有段落元素的前面。</desc>
+    <code><![CDATA[
+$( "b" ).clone().prependTo( "p" );
+]]></code>
+    <html><![CDATA[
+<b>Hello</b><p>, how are you?</p>
+]]></html>
+  </example>
+  <category slug="manipulation/copying"/>
+  <category slug="version/1.0"/>
+  <category slug="version/1.5"/>
+</entry>
