@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<entry type="selector" name="contains" return="">
+  <title>:contains() 选择器</title>
+  <sample>:contains(text)</sample>
+  <signature>
+    <added>1.1.4</added>
+    <argument name="text" type="String">
+      <desc>一个用于查找的文本字符串。这是区分大小写的。</desc>
+    </argument>
+  </signature>
+  <desc>择所有包含指定文本的元素。</desc>
+  <longdesc>
+    <p>匹配的文本可以直接出现在所选的元素中，或在该元素的任何后代中，或两者兼有。正如属性值选择器，<code>:contains()</code>选择器中括号内的文本，可以是纯文本或用引号包围。文本必须有匹配的情况下才能被选中。</p>
+  </longdesc>
+  <example>
+    <desc>查找所有包含“John”的div，并为他们添加下划线样式。</desc>
+    <code><![CDATA[
+$( "div:contains('John')" ).css( "text-decoration", "underline" );
+]]></code>
+    <html><![CDATA[
+<div>John Resig</div>
+<div>George Martin</div>
+<div>Malcom John Sinclair</div>
+<div>J. Ohn</div>
+]]></html>
+  </example>
+  <category slug="selectors/content-filter-selector"/>
+  <category slug="version/1.1.4"/>
+</entry>
